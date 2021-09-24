@@ -22,7 +22,7 @@ class BurgerBuilder extends Component {
 
         this.state = {
             ingredients: null,
-            totalPrice: 4,
+            totalPrice: 0,
             purchasable: false,
             purchasing: false,
             isLoading: false,
@@ -40,7 +40,7 @@ class BurgerBuilder extends Component {
             })
             .catch(error => {
                 this.setState({error: true});
-            })
+        })
     }
 
     purchaseHandler = () => {
@@ -105,7 +105,7 @@ class BurgerBuilder extends Component {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
         }
 
-        queryParams.push('price' + this.state.totalPrice)
+        queryParams.push('price=' + this.state.totalPrice)
 
         const queryString = queryParams.join('&')
         this.props.history.push({

@@ -27,41 +27,33 @@ class ContactData extends Component {
         isLoading: false,
     }
 
-    orderHandler = (e) => {
-        e.preventDefault()
-        console.log(this.props.ingredients);
-
-        this.setState({isLoading: true})
+    orderHandler = ( event ) => {
+        event.preventDefault();
+        this.setState( { loading: true } );
+        console.log(this.props.ingredient);
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ingredient,
             price: this.props.price,
             customer: {
-                name: 'Senninseyi',
+                name: 'Max Schwarzmüller',
                 address: {
-                    state: 'Lagos',
-                    country: 'Nigeria'
+                    street: 'Teststreet 1',
+                    zipCode: '41351',
+                    country: 'Germany'
                 },
-                email: 'seyi.oyebamiji@gmail.com',
+                email: 'test@test.com'
             },
-            deliverymethod: 'fastest',
+            deliveryMethod: 'fastest'
         }
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
-
-        axios.post('/orders.json',order,config)
-            .then(response => {
-                this.setState({isLoading: false});
-                console.log(response);
-            })
-            .catch(error => {
-                this.setState({isLoading: false});
-                console.log(error);
-            });
-    }
+        axios.post( '/orders.json', order )
+            .then( response => {
+                this.setState( { loading: false } );
+                this.props.history.push('/');
+            } )
+            .catch( error => {
+                this.setState( { loading: false } );
+            } );
+        }
 
     render(){
 
