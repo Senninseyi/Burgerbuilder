@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "../../../components/ui/button/button";
 import tw,{styled} from "twin.macro";
 import axios from "../../../../axios/axios-orders";
+import Spinner from "../../../components/ui/spinner/spinner"
 
 const Input = styled.input`
     ${tw`text-black font-semibold bg-white outline-none pl-3 py-3 w-full`}
@@ -35,13 +36,13 @@ class ContactData extends Component {
             ingredients: this.props.ingredient,
             price: this.props.price,
             customer: {
-                name: 'Max Schwarzmüller',
+                name: 'Senninseyi',
                 address: {
-                    street: 'Teststreet 1',
+                    street: 'Surulere',
                     zipCode: '41351',
-                    country: 'Germany'
+                    country: 'Nigeria'
                 },
-                email: 'test@test.com'
+                email: 'seyi.oyebamiji@gmail.com'
             },
             deliveryMethod: 'fastest'
         }
@@ -56,11 +57,8 @@ class ContactData extends Component {
         }
 
     render(){
-
-        return(
-            <div className="text-center flex flex-col justify-center items-center w-auto">
-                <h4 className="text-2xl font-semibold"> Enter your ContactData </h4>
-                <Form>
+        let form = (
+            <Form>
                     <div className="flex-1 flex flex-col w-full md:flex-row">
                         <div className="w-full flex-1 mx-2">
                             <FormControl>
@@ -93,6 +91,15 @@ class ContactData extends Component {
                         Order
                     </Button>
                 </Form>
+        );
+        if (this.state.isLoading) {
+            form = <Spinner/>
+        }
+
+        return(
+            <div className="text-center flex flex-col justify-center items-center w-auto">
+                <h4 className="text-2xl font-semibold"> Enter your ContactData </h4>
+                {form}
             </div>
         )
     }
