@@ -1,11 +1,12 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import tw,{styled} from 'twin.macro';
 
 const NavigationItem = tw.li`
     my-2 box-border h-full flex items-center w-full
 `
 
-const Link = styled.a`
+const Link = styled(NavLink)`
     ${tw`text-black font-semibold w-full lg:text-white md:text-white no-underline lg:h-full md:h-full 
     lg:px-2 lg:py-1 md:px-2 md:py-1 block lg:border-b-4 lg:border-transparent md:border-b-4 md:border-transparent 
     box-border lg:flex md:flex lg:items-center md:items-center text-left
@@ -27,7 +28,8 @@ const Link = styled.a`
 
 const navigationItem = (props) => (
     <NavigationItem>
-        <Link href={props.link} className={props.active ? 'active' : null}>
+        <Link to={props.link}
+            exact={props.exact}>
             {props.children}
         </Link>
     </NavigationItem>
