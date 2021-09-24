@@ -8,8 +8,8 @@ const NavigationItems = tw.ul`
 
 const navigationItems = () => (
     <NavigationItems>
-        <NavigationItem link="/" active> BurgerBuilder</NavigationItem>
-        <NavigationItem link=""> Checkout</NavigationItem>
+        <NavigationItem link="/" exact>BurgerBuilder</NavigationItem>
+        <NavigationItem link="/orders">Orders</NavigationItem>
     </NavigationItems>
 );
 
