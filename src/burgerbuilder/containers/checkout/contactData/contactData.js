@@ -3,10 +3,7 @@ import Button from "../../../components/ui/button/button";
 import tw,{styled} from "twin.macro";
 import axios from "../../../../axios/axios-orders";
 import Spinner from "../../../components/ui/spinner/spinner"
-
-const Input = styled.input`
-    ${tw`text-black font-semibold bg-white outline-none pl-3 py-3 w-full`}
-`
+import Input from "../../../components/ui/input/input";
 
 const Form = styled.form`
     ${tw`w-4/5 lg:w-4/6 flex flex-col pb-4 my-4`}
@@ -61,29 +58,21 @@ class ContactData extends Component {
             <Form>
                     <div className="flex-1 flex flex-col w-full md:flex-row">
                         <div className="w-full flex-1 mx-2">
-                            <FormControl>
-                                <Input type="text" name="name" placeholder="Enter your name"/>
-                            </FormControl>
+                            <Input type="text" name="name" placeholder="Enter your name"/>
                         </div>
 
                         <div className="w-full flex-1 mx-2">
-                            <FormControl>
-                                <Input type="email" name="email" placeholder="Enter your email"/>
-                            </FormControl>
+                            <Input type="email" name="email" placeholder="Enter your email"/>
                         </div>
                     </div>
 
                     <div className="flex-1 flex flex-col w-full md:flex-row">
                         <div className="w-full flex-1 mx-2">
-                            <FormControl>
-                                <Input type="text" name="street" placeholder="Your street"/>
-                            </FormControl>
+                            <Input type="text" name="street" placeholder="Your street"/>
                         </div>
 
                         <div className="w-full flex-1 mx-2">
-                            <FormControl>
-                                <Input type="text" name="postcode" placeholder="Your post code"/>
-                            </FormControl>
+                            <Input type="text" name="postcode" placeholder="Your post code"/>
                         </div>
                     </div>
 
