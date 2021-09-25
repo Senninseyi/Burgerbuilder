@@ -21,7 +21,7 @@ const Input = styled.div`
         display: block;
         width: 100%;
 
-        & :focus{
+        &:focus{
             outline: none;
             background-color: #ccc;
         }
@@ -38,7 +38,7 @@ const input = (props) => {
             inputElement = <input className="inputElement" {...props}/>
             break;
         case ('textarea'):
-            inputElement = <textarea className="inputElemenst" {...props}/>
+            inputElement = <textarea className="inputElement" {...props}/>
             break;
         default:
             inputElement = <input className="inputElement" {...props}/>
