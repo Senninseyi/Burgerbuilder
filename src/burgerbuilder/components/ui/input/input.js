@@ -12,7 +12,7 @@ const Input = styled.div`
         margin-bottom: 8px;
     }
 
-    &.inputElement {
+    & .inputElement {
         outline: none;
         border: 1px solid #ccc;
         background-color: white;
@@ -21,7 +21,7 @@ const Input = styled.div`
         display: block;
         width: 100%;
 
-        &:focus{
+        & :focus{
             outline: none;
             background-color: #ccc;
         }
@@ -35,13 +35,13 @@ const input = (props) => {
 
     switch(props.inputType) {
         case ('input'):
-            inputElement = <input {...props}/>
+            inputElement = <input className="inputElement" {...props}/>
             break;
         case ('textarea'):
-            inputElement = <textarea {...props}/>
+            inputElement = <textarea className="inputElemenst" {...props}/>
             break;
         default:
-            inputElement = <input {...props}/>
+            inputElement = <input className="inputElement" {...props}/>
     }
 
     return(
