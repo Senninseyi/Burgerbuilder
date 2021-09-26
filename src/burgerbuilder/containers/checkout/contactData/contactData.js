@@ -6,42 +6,131 @@ import Spinner from "../../../components/ui/spinner/spinner"
 import Input from "../../../components/ui/input/input";
 
 const Form = styled.form`
-    ${tw`w-4/5 lg:w-4/6 flex flex-col pb-4 my-4`}
-`
-
-const FormControl = tw.div`
-    lg:mr-3 my-2 p-1 bg-white md:mr-3 flex border border-yellow-300 rounded
+    ${tw`w-4/5 flex flex-col items-center p-6 my-4 shadow`}
 `
 
 class ContactData extends Component {
 
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalCode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your name',
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street',
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Zip code',
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 6,
+                },
+                valid: false,
+                touched: false,
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country',
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your email',
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' },
+                    ]
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false,
+            },
         },
+        formIsvalid: false,
         isLoading: false,
+    }
+
+    checkValidity(value, rules) {
+
+        let isValid = true
+
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        return isValid
     }
 
     orderHandler = ( event ) => {
         event.preventDefault();
+        const formData = {}
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
+            
+        }
         this.setState( { loading: true } );
-        console.log(this.props.ingredient);
         const order = {
             ingredients: this.props.ingredient,
             price: this.props.price,
-            customer: {
-                name: 'Senninseyi',
-                address: {
-                    street: 'Surulere',
-                    zipCode: '41351',
-                    country: 'Nigeria'
-                },
-                email: 'seyi.oyebamiji@gmail.com'
-            },
-            deliveryMethod: 'fastest'
+            orderData: formData
         }
         axios.post( '/orders.json', order )
             .then( response => {
@@ -53,33 +142,52 @@ class ContactData extends Component {
             } );
         }
 
+    inputChangedHandler = (e, inputIdentifier) => {
+        const updatedOrderform = {
+            ...this.state.orderForm
+        }
+
+        const updatedFormElement = {
+            ...updatedOrderform[inputIdentifier]
+        }
+
+        updatedFormElement.value = e.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedOrderform[inputIdentifier] = updatedFormElement;
+        
+        // const formIsvalid = false;
+
+        this.setState({
+            orderForm: updatedOrderform
+        })
+    }
+
     render(){
+
+        const formElementsArray = [];
+        for (let key in this.state.orderForm){
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key],
+            })
+        }
+
         let form = (
-            <Form>
-                    <div className="flex-1 flex flex-col w-full md:flex-row">
-                        <div className="w-full flex-1 mx-2">
-                            <Input type="text" name="name" placeholder="Enter your name"/>
-                        </div>
-
-                        <div className="w-full flex-1 mx-2">
-                            <Input type="email" name="email" placeholder="Enter your email"/>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 flex flex-col w-full md:flex-row">
-                        <div className="w-full flex-1 mx-2">
-                            <Input type="text" name="street" placeholder="Your street"/>
-                        </div>
-
-                        <div className="w-full flex-1 mx-2">
-                            <Input type="text" name="postcode" placeholder="Your post code"/>
-                        </div>
-                    </div>
-
-                    <Button clicked={this.orderHandler}>
-                        Order
-                    </Button>
-                </Form>
+            <Form onSubmit={this.orderHandler}>
+                {formElementsArray.map(formElements => {
+                    return(
+                        <Input key={formElements.id} 
+                               elementType={formElements.config.elementType} 
+                               elementConfig={formElements.config.elementConfig}
+                               invalid={!formElements.config.valid}
+                               value={formElements.config.value}
+                               touched={formElements.config.touched}
+                               changed={(e)=> this.inputChangedHandler(e, formElements.id)}/>
+                    )
+                })}
+                <Button clicked={this.orderHandler}>Order</Button>
+            </Form>
         );
         if (this.state.isLoading) {
             form = <Spinner/>
