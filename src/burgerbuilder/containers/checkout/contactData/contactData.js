@@ -89,9 +89,7 @@ class ContactData extends Component {
                     ]
                 },
                 value: '',
-                validation: {
-                    required: true
-                },
+                validation: {},
                 valid: false,
                 touched: false,
             },
@@ -124,7 +122,6 @@ class ContactData extends Component {
         const formData = {}
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value
-            
         }
         this.setState( { loading: true } );
         const order = {
@@ -156,10 +153,16 @@ class ContactData extends Component {
         updatedFormElement.touched = true;
         updatedOrderform[inputIdentifier] = updatedFormElement;
         
-        // const formIsvalid = false;
+        let formIsvalid = true;
+        for (let inputIdentifier in updatedOrderform){
+            formIsvalid = updatedOrderform[inputIdentifier].valid && formIsvalid
+        }
+
+        // console.log(formIsvalid) debugging formvalidity
 
         this.setState({
-            orderForm: updatedOrderform
+            orderForm: updatedOrderform,
+            formIsvalid: formIsvalid
         })
     }
 
@@ -186,7 +189,10 @@ class ContactData extends Component {
                                changed={(e)=> this.inputChangedHandler(e, formElements.id)}/>
                     )
                 })}
-                <Button clicked={this.orderHandler}>Order</Button>
+                <Button clicked={this.orderHandler} 
+                        disabled={!this.state.formIsvalid}>
+                            Order
+                </Button>
             </Form>
         );
         if (this.state.isLoading) {
