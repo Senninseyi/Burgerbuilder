@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 // import axios from 'axios';
 import reportWebVitals from './reportWebVitals';
 
@@ -20,6 +22,8 @@ import reportWebVitals from './reportWebVitals';
 //   console.log(error);
 //   return Promise.reject(error)
 // })
+
+// const store = 
 
 ReactDOM.render(
   <React.StrictMode>

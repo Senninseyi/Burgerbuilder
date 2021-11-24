@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import Order from "../../components/order/order";
 import axios from "../../../axios/axios-orders";
 import withErrorHandler from "../../withErrorHandler/withErrorHandler";
+import tw, {styled} from 'twin.macro';
+
+const Ordered = styled.div`
+    ${tw`grid grid-cols-1 lg:grid-cols-3`}
+`
 
 class Orders extends Component {
     state = {
@@ -29,14 +34,14 @@ class Orders extends Component {
 
     render(){
         return(
-            <div>
+            <Ordered>
                 {this.state.orders.map(order => (
                     <Order 
                         key={order.id}
                         ingredients={order.ingredients}
                         price={+order.price}/>
                 ))}
-            </div>
+            </Ordered>
         )
     }
 }

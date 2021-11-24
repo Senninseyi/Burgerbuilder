@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import tw, {styled} from 'twin.macro';
 
 const Order = styled.div`
     width:80%;
@@ -40,7 +40,7 @@ const order = (props) => {
     return(
         <Order>
             <p>Ingredients: {ingredientsOutput}</p>
-            <p>Price: <strong>USD {Number.parseFloat(props.price).toFixed(2)} </strong> </p>
+            <p>Price: USD<strong> {Number.parseFloat(props.price).toFixed(2)} </strong> </p>
         </Order>    
     )
 }
