@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 // import axios from 'axios';
 import reportWebVitals from './reportWebVitals';
 
+import reducer from './store/reducer/reducer'
+
 // axios.interceptors.request.use(request => {
 //   console.log(request);
 //   return request;
@@ -23,12 +25,12 @@ import reportWebVitals from './reportWebVitals';
 //   return Promise.reject(error)
 // })
 
-// const store = 
+const store = createStore(reducer)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -4,6 +4,7 @@ import tw,{styled} from "twin.macro";
 import axios from "../../../../axios/axios-orders";
 import Spinner from "../../../components/ui/spinner/spinner"
 import Input from "../../../components/ui/input/input";
+import { connect } from "react-redux";
 
 const Form = styled.form`
     ${tw`w-4/5 flex flex-col items-center p-6 my-4 shadow`}
@@ -125,7 +126,7 @@ class ContactData extends Component {
         }
         this.setState( { loading: true } );
         const order = {
-            ingredients: this.props.ingredient,
+            ingredients: this.props.ings,
             price: this.props.price,
             orderData: formData
         }
@@ -208,4 +209,11 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProps)(ContactData)
