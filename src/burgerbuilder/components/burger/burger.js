@@ -5,7 +5,7 @@ import { Burger } from './theme';
 const burger = (props) => {
 
     let transformedIngredients = Object.keys(props.ingredients).map(igKey => {
-            return [...Array(props.ingredients[igKey])].map((_, i) =>{
+            return [...Array(Math.max(0, props.ingredients[igKey]))].map((_, i) =>{
                 return <BurgerIngredients key={igKey + i} type={igKey}/>
             })
         }).reduce((arr,el) => {

@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 // import axios from 'axios';
 import reportWebVitals from './reportWebVitals';
 
-import reducer from './store/reducer/reducer'
+import burgerbuilderReducer from './store/reducer/burgerbuilder.js'
+import thunk from 'redux-thunk';
 
 // axios.interceptors.request.use(request => {
 //   console.log(request);
@@ -25,7 +26,11 @@ import reducer from './store/reducer/reducer'
 //   return Promise.reject(error)
 // })
 
-const store = createStore(reducer)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(burgerbuilderReducer , composeEnhancers(
+  applyMiddleware(thunk)
+))
 
 ReactDOM.render(
   <Provider store={store}>

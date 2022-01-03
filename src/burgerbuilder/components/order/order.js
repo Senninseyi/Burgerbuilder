@@ -1,5 +1,5 @@
 import React from 'react';
-import tw, {styled} from 'twin.macro';
+import {styled} from 'twin.macro';
 
 const Order = styled.div`
     width:80%;
