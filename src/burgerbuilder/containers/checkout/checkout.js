@@ -1,11 +1,16 @@
 import React, { Component } from "react";
-import { Route } from "react-router";
+import { Route, Redirect } from "react-router";
 import CheckoutSummary from "../../components/order/checkoutSummary/checkoutSummary";
 import ContactData from "./contactData/contactData";
 
 import { connect } from "react-redux";
+import * as actions from '../../../store/actions/index'
 
 class Checkout extends Component {
+
+    // componentWillMount () {
+    //     this.props.onInitPurchase();
+    // }
 
     checkoutContinueHandler = () => {
         this.props.history.replace('/checkout/contact-data')
@@ -16,23 +21,30 @@ class Checkout extends Component {
     }
 
     render(){
-        return(
-            <div className="w-auto">
-                <CheckoutSummary 
-                    ingredients={this.props.ings}
-                    checkoutCanceled={this.checkoutCancelHandler}
-                    checkoutContinue={this.checkoutContinueHandler}/>
-                <Route 
-                    path={this.props.match.path + '/contact-data'} 
-                    component={ContactData}/>
-            </div>
-        )
+        let summary = <Redirect to='/'/>
+        if (this.props.ings) {
+            const purchasedRedirect = this.props.purchased ? <Redirect to='/'/> : null
+            summary = (
+                <>
+                    {purchasedRedirect}
+                    <CheckoutSummary 
+                        ingredients={this.props.ings}
+                        checkoutCanceled={this.checkoutCancelHandler}
+                        checkoutContinue={this.checkoutContinueHandler}/>
+                    <Route 
+                        path={this.props.match.path + '/contact-data'} 
+                        component={ContactData}/>
+                </>
+            )
+        }
+        return summary
     }
 }
 
 const mapStateToProps = state => {
     return{
-        ings: state.ingredients,
+        ings: state.burgerbuilder.ingredients,
+        purchased: state.orders.purchased,
     }
 }
 
