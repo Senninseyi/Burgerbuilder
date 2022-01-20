@@ -185,7 +185,8 @@ class ContactData extends Component {
                                changed={(e)=> this.inputChangedHandler(e, formElements.id)}/>
                     )
                 })}
-                <Button clicked={this.orderHandler} 
+                <Button clicked={this.orderHandler}
+                        primary 
                         disabled={!this.state.formIsvalid}>
                             Order
                 </Button>
