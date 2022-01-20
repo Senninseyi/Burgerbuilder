@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Aux from '../../../auxillary/auxillary.js';
 import Button from '../../ui/button/button.js';
+import { Checkout, Description, OrderTitle, SummaryContainer } from './theme.js';
 
 class OrderSummary extends Component {
 
@@ -16,15 +17,19 @@ class OrderSummary extends Component {
 
         return(
             <Aux>
-                <h3>Your Order</h3>
-                <p>A delicious burger with the following ingredients:</p>
-                <ul>
-                    {ingredientSummary}
-                </ul>
-                <p>Continue to Checkout</p>
-                <p><strong>Total Price: {this.props.price.toFixed(2)}</strong></p>
-                <Button clicked={this.props.purchaseCancel}>Cancel</Button>
-                <Button primary clicked={this.props.purchaseContinue}>Continue</Button>
+                <SummaryContainer>
+                    <OrderTitle>Your Order</OrderTitle>
+                    <Description>A delicious burger with the following ingredients:</Description>
+                    <ul>
+                        {ingredientSummary}
+                    </ul>
+                    <Checkout>Continue to Checkout</Checkout>
+                    <p><strong>Total Price: {this.props.price.toFixed(2)}</strong></p>
+                    <div>
+                        <Button clicked={this.props.purchaseCancel}>Cancel</Button>
+                        <Button primary clicked={this.props.purchaseContinue}>Continue</Button>
+                    </div>
+                </SummaryContainer>
             </Aux>
         )
     }

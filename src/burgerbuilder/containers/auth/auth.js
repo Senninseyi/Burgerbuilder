@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import Input from '../../components/ui/input/input'
 import Button from '../../components/ui/button/button'
+import tw, { styled } from 'twin.macro'
+
+const AuthContainer = styled.div`
+    ${tw`flex justify-center mt-24`}
+` 
 
 class Auth extends Component {
 
@@ -48,23 +53,27 @@ class Auth extends Component {
         }
 
         const form = formElementsArray.map(formEl => {
-            <Input 
-                key={formEl.id}
-                elementType={formEl.config.elementType} 
-                elementConfig={formEl.config.elementConfig}
-                invalid={!formEl.config.valid}
-                value={formEl.config.value}
-                touched={formEl.config.touched}
-                changed={(e)=> this.inputChangedHandler(e, formEl.id)}/>
+            return (
+                <Input 
+                    key={formEl.id}
+                    elementType={formEl.config.elementType} 
+                    elementConfig={formEl.config.elementConfig}
+                    invalid={!formEl.config.valid}
+                    value={formEl.config.value}
+                    touched={formEl.config.touched}
+                    changed={(e)=> this.inputChangedHandler(e, formEl.id)}/>
+            )
         })
 
         return (
-            <div>
+            <AuthContainer>
                 <form>
                     {form}
-                    <Button btnType="Success"> Submit</Button>
+                    <Button primary> Submit</Button>
                 </form>
-            </div>
+            </AuthContainer>
         )
     }
 }
+
+export default Auth
