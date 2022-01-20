@@ -1,7 +1,7 @@
 import tw,{styled} from 'twin.macro';
 
 export const Modal = styled.div`
-    ${tw`fixed z-[500] bg-white shadow-sm top-[30%] left-[15%] p-4`}
+    ${tw`fixed z-[500] bg-white shadow-sm top-[15%] lg:top-[30%] left-[15%] p-4`}
     width: 70%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;

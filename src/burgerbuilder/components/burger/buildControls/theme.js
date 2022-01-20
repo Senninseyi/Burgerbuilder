@@ -7,6 +7,6 @@ export const BuildControls = styled.div`
 `
 
 export const OrderBtn = tw.button`
-    bg-blue-500 hover:bg-blue-700 px-3 py-2 cursor-pointer rounded border-white border-2 text-white font-semibold
+    bg-blue-500 hover:bg-blue-700 px-3 py-2 cursor-pointer border-white border-2 text-white font-semibold
     disabled:bg-gray-700 disabled:cursor-not-allowed disabled:border-black active:bg-blue-700
 `

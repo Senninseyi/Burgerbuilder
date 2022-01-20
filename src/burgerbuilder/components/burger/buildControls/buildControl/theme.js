@@ -9,10 +9,11 @@ export const Label = tw.label`
 `
 
 export const Less = tw.button`
-    bg-purple-500 text-white hover:bg-purple-700 rounded py-1 px-3 mx-3 
+    bg-purple-500 text-white hover:bg-purple-700 py-1 px-3 mx-3 
     border-2 border-purple-900 disabled:bg-black
 `
 
 export const More = tw.button`
-    bg-green-500 text-white hover:bg-green-700 rounded py-1 px-3 my-3 border-2 border-green-900 mx-3 active:bg-green-900
+    bg-green-500 text-white hover:bg-green-700 py-1 px-3 my-3 border-2
+    border-green-900 mx-3 active:bg-green-900
 `
