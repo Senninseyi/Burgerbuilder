@@ -2,10 +2,7 @@ import React from 'react';
 import tw,{styled} from 'twin.macro';
 
 export const Buttons = styled.button`
-    ${tw`text-black outline-none cursor-pointer my-3 
-        font-bold disabled:bg-gray-700 disabled:cursor-not-allowed
-        disabled:border-black`}
-
+    ${tw`outline-none cursor-pointer my-2 font-bold`}
     padding: 10px;
     margin-right: 10px;
     color: white;
