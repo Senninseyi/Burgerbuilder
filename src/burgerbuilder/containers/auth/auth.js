@@ -6,6 +6,8 @@ import tw, { styled } from 'twin.macro'
 import * as actions from '../../../store/actions/index'
 import { connect } from 'react-redux'
 
+import Spinner from '../../components/ui/spinner/spinner'
+
 const AuthContainer = styled.div`
     ${tw`flex justify-center mt-24 flex-col items-center`}
 ` 
@@ -100,7 +102,7 @@ class Auth extends Component {
             })
         }
 
-        const form = formElementsArray.map(formEl => {
+        let form = formElementsArray.map(formEl => {
             return (
                 <Input 
                     key={formEl.id}
@@ -112,10 +114,22 @@ class Auth extends Component {
                     changed={(e)=> this.inputChangedHandler(e, formEl.id)}/>
             )
         })
+
+        if (this.props.loading) {
+            form = <Spinner/>
+        }
+
+        let errorMessages = null;
+        if (this.props.error) {
+            errorMessages = (
+                <p>{this.props.error.message}</p>
+            )
+        }
         
 
         return (
             <AuthContainer>
+                {errorMessages}
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button primary> Submit</Button>
@@ -130,10 +144,17 @@ class Auth extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error 
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Auth)
+export default connect(mapStateToProps, mapDispatchToProps)(Auth)
