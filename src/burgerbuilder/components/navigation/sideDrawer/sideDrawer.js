@@ -24,10 +24,10 @@ const sideDrawer = (props) => {
     return(
         <Aux>
             <Backdrop show={props.open} clicked={props.closed}/>
-            <SideDrawer className={props.open ? 'open' : 'close'}>
+            <SideDrawer className={props.open ? 'open' : 'close'} onClick={props.closed}>
                 <Logo height="11%"/>
                 <nav>
-                    <NavigationItems />
+                    <NavigationItems isAuthenticated={props.isAuth}/>
                 </nav>
             </SideDrawer>
         </Aux>
