@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Layout from './burgerbuilder/components/layout/layout';
 import './App.css';
 import BurgerBuilder from './burgerbuilder/containers/burgerbuilder/burgerbuilder';
-// import Blog from './blogpost/containers/Blog/Blog.js';
 import { Route, Switch, withRouter} from "react-router-dom"
 import Checkout from './burgerbuilder/containers/checkout/checkout';
 import Orders from './burgerbuilder/containers/orders/orders';
@@ -47,7 +46,6 @@ class App extends Component {
         <Layout>
           {routes}
         </Layout>
-        {/* <Blog/> */}
       </div>
     )
   }
